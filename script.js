@@ -493,3 +493,28 @@ btnRun.addEventListener('click', async () => {
         btnRun.disabled = false;
     }
 });
+// ── PROFILE NAME LOGIC (LOCAL STORAGE) ──
+const profileBtn      = document.getElementById('profileBtn');
+const userNameDisplay = document.getElementById('userNameDisplay');
+const avatarLetter    = document.getElementById('avatarLetter');
+
+function loadUserName() {
+    // Ambil nama dari memori browser, kalau kosong defaultnya "Tamu"
+    let savedName = localStorage.getItem('italifyUserName') || 'Tamu';
+    userNameDisplay.textContent = savedName;
+    avatarLetter.textContent = savedName.charAt(0).toUpperCase();
+}
+
+profileBtn.addEventListener('click', () => {
+    let currentName = localStorage.getItem('italifyUserName') || '';
+    let newName = prompt("Masukkan nama kamu (tersimpan di browser ini):", currentName);
+    
+    if (newName && newName.trim() !== "") {
+        localStorage.setItem('italifyUserName', newName.trim());
+        loadUserName();
+        showToast(`Nama profil diubah jadi ${newName.trim()}`, 'success');
+    }
+});
+
+// Jalankan saat web pertama kali dibuka
+loadUserName();
