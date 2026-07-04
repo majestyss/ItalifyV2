@@ -1,4 +1,4 @@
-const API_URL = "https://majesty.pythonanywhere.com/";
+const API_URL = "https://majesty.pythonanywhere.com";
 
 const fileInput       = document.getElementById('fileInput');
 const fileNameDisplay = document.getElementById('fileNameDisplay');
