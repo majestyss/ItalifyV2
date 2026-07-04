@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Italify — Document Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="toast"><span class="toast-dot" id="toastDot"></span><span id="toastMsg">–</span></div>
+
+    <div class="sidebar">
+        <div class="sb-brand">Italify</div>
+        <div class="sb-subbrand">Document Tools</div>
+        
+        <div class="sb-section">Tools</div>
+        <div class="sb-menu-item active">
+            <div class="sb-item-inner">
+                <svg class="sb-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h10M3 8h7M3 13h5"/><path d="M11 10l1.5 3 1.5-3" stroke-linecap="round"/></svg>
+                Auto Italic
+            </div>
+            <span class="sb-badge active">Active</span>
+        </div>
+        <div class="sb-menu-item">
+            <div class="sb-item-inner">
+                <svg class="sb-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M3 8h10M3 12h10" stroke-linecap="round"/><circle cx="11" cy="4" r="1.5" fill="currentColor" stroke="none"/></svg>
+                Bold Marker
+            </div>
+            <span class="sb-badge soon">Soon</span>
+        </div>
+        <div class="sb-menu-item">
+            <div class="sb-item-inner">
+                <svg class="sb-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l3 4-3 4M9 12h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Find &amp; Replace
+            </div>
+            <span class="sb-badge soon">Soon</span>
+        </div>
+
+        <div class="sb-section" style="margin-top: 1.5rem;">Library</div>
+        <div class="sb-menu-item">
+            <div class="sb-item-inner">
+                <svg class="sb-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 6h6M5 10h4" stroke-linecap="round"/></svg>
+                Term Database
+            </div>
+        </div>
+
+        <div class="sb-profile">
+            <div class="sb-avatar">M</div>
+            <div>
+                <div class="sb-user-name">Majesta</div>
+                <div class="sb-user-plan">Pro Engineer</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-header">
+            <div class="th-left">
+                <div class="engine">Auto Italic Engine</div>
+                <div class="title">Auto Italic</div>
+            </div>
+            <div class="th-right">
+                <button class="th-action-btn">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 8a5 5 0 1 0 10 0A5 5 0 0 0 3 8z"/><path d="M8 5v3l2 2"/></svg>
+                    History
+                </button>
+                <button class="th-action-btn">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 8l2 2 4-4"/><rect x="2" y="2" width="12" height="12" rx="2"/></svg>
+                    Manage Database
+                </button>
+            </div>
+        </div>
+
+        <div class="th-tabs">
+            <div class="th-tab active" id="tabItalicize">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 3h4M4 11h4M7 3l-2 8"/></svg>
+                Italicize
+            </div>
+            <div class="th-tab" id="tabSuggestions">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M7 4v3l2 1.5"/></svg>
+                Suggestions
+                <span class="wa-badge" id="sugBadge" style="display: none;">0</span>
+            </div>
+            <div class="th-tab" id="tabPreview">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4h10M2 7h10M2 10h6"/></svg>
+                Live Preview
+            </div>
+        </div>
+
+        <div class="tab-content-container">
+            
+            <!-- Pane 1: Italicize -->
+            <div class="tab-pane active" id="paneItalicize">
+                <div class="grid-layout">
+                    <div class="col-left">
+                        <div class="section-label">
+                            <span class="step-num">01</span>
+                            Document Source
+                        </div>
+                        
+                        <div class="uploader-box" id="dropZone">
+                            <div class="upload-icon-wrap">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            </div>
+                            <div id="fileInfoWrapper">
+                                <p id="fileNameDisplay">Click to upload or drag &amp; drop a .docx file</p>
+                                <button id="btnRemoveFile" style="display:none;" title="Remove file">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                            <input type="file" id="fileInput" accept=".docx" style="display:none;">
+                        </div>
+                        
+                        <div class="section-label" style="margin-top: 0.5rem;">
+                            <span class="step-num">02</span>
+                            Target Term List
+                        </div>
+                        <textarea class="textarea-box" id="termList" placeholder="e.g.&#10;inverter&#10;SPWM&#10;ESP32&#10;&#10;One term per line"></textarea>
+                    </div>
+
+                    <div class="col-right">
+                        <div class="section-label">
+                            <span class="step-num">03</span>
+                            Document Preview
+                        </div>
+                        <div class="preview-card">
+                            <div class="preview-body" id="miniPreviewBody">
+                                <div class="empty-state">
+                                    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" width="36" height="36" style="color: var(--text-muted); opacity:0.4;"><path d="M28 4H12a4 4 0 0 0-4 4v32a4 4 0 0 0 4 4h24a4 4 0 0 0 4-4V20L28 4z"/><polyline points="28 4 28 20 44 20"/><line x1="16" y1="28" x2="32" y2="28"/><line x1="16" y1="33" x2="28" y2="33"/></svg>
+                                    <p>Upload a document to see a preview.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pane 2: Suggestions -->
+            <div class="tab-pane" id="paneSuggestions" style="padding: 0 3rem 2rem;">
+                <div class="preview-card">
+                    <div class="ph-header">
+                        <div class="ph-title">
+                            <div class="ph-dot" style="background:var(--brand-pink); box-shadow: 0 0 8px var(--brand-pink);"></div>
+                            Detected Terms
+                        </div>
+                        <div class="ph-hint">Click a term to add it to the Term List</div>
+                    </div>
+                    <div class="preview-body">
+                        <div class="suggestions-container" id="suggestionBox">
+                            <div class="empty-state">
+                                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" width="36" height="36" style="color: var(--text-muted); opacity:0.4;"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l6 4"/></svg>
+                                <p>Upload a document to scan for foreign-language terms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pane 3: Live Preview -->
+            <div class="tab-pane" id="panePreview" style="padding: 0 3rem 2rem;">
+                <div class="preview-card">
+                    <div class="ph-header">
+                        <div class="ph-title"><div class="ph-dot"></div> Output Preview</div>
+                        <div class="ph-matches" id="statusBadge" data-state="ready">Ready</div>
+                    </div>
+                    <div class="preview-body" id="previewBody">
+                        <div class="empty-state">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" width="36" height="36" style="color: var(--text-muted); opacity:0.4;"><rect x="6" y="6" width="36" height="36" rx="4"/><path d="M14 18h20M14 24h14M14 30h10"/></svg>
+                            <p>Upload a document and run the engine to see the formatted output.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Help FAB -->
+        <button class="fab-help" id="btnHelp" title="How to use">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="16" height="16"><circle cx="8" cy="8" r="6"/><path d="M8 11v-1M8 8.5c0-1 .8-1.5 1-2a1.5 1.5 0 0 0-3 0"/></svg>
+        </button>
+
+        <div class="help-popup" id="helpPopup">
+            <h4>How to Use</h4>
+            <ol>
+                <li>Upload your document (.docx).</li>
+                <li>Review detected terms in the <b>Suggestions</b> tab.</li>
+                <li>Add custom terms to the Term List.</li>
+                <li>Press the <b style="color:var(--brand-pink)">Run button</b> to process.</li>
+            </ol>
+            <div class="help-disclaimer">
+                <b>Note:</b> Suggestions are experimental and may not be fully accurate. Review them before applying.
+            </div>
+        </div>
+
+        <!-- Action FABs -->
+        <div class="fab-container">
+            <a id="btnDownload" class="btn-fab fab-download" style="display: none;" title="Download result">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+            </a>
+            
+            <button id="btnRun" class="btn-fab fab-run" title="Run — Process Document">
+                <svg id="iconRun" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
