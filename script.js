@@ -402,6 +402,11 @@ function renderSuggestions() {
 
 // ── RUN — PROCESS DOCUMENT ──
 btnRun.addEventListener('click', async () => {
+    // ── FITUR ANTI-SPAM (COOLDOWN) ──
+    if (btnRun.dataset.cooldown === 'true') {
+        showToast('Sabar lek! Tunggu 5 detik sebelum Run lagi.', 'error');
+        return;
+    }
     const file = fileInput.files[0];
 
     if (!file) {
@@ -490,6 +495,17 @@ btnRun.addEventListener('click', async () => {
         hideToast();
         showToast(`Error: ${error.message}`, 'error');
     } finally {
+        btnRun.dataset.cooldown = 'true';
+        btnRun.style.opacity = '0.4';
+        btnRun.style.cursor = 'not-allowed';
+        
+        // Timer 5 detik (5000 milidetik) sebelum tombol bisa dipencet lagi
+        setTimeout(() => {
+            btnRun.dataset.cooldown = 'false';
+            btnRun.disabled = false;
+            btnRun.style.opacity = '1';
+            btnRun.style.cursor = 'pointer';
+        }, 5000);
         btnRun.disabled = false;
     }
 });
