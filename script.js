@@ -1,4 +1,4 @@
-const API_URL = "https://Majesty.pythonanywhere.com";
+const API_URL = "https://majestyss-italify.hf.space";
 
 const fileInput       = document.getElementById('fileInput');
 const fileNameDisplay = document.getElementById('fileNameDisplay');
